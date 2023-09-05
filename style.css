@@ -1,0 +1,112 @@
+body{
+    background-color: hsla(0, 14%, 90%, 0.277);
+}
+main{
+    display: flex;
+    gap: 30px;
+}
+.container, .container2, .container3{
+    width: 40%;
+}
+.containerLabel{
+    display: flex;
+}
+.btnreset{
+    height: 25px;
+    margin-top: 20px;
+    margin-left: 20px;
+    color: hsla(60, 87%, 55%, 0.994);
+    border: 1px solid hsla(60, 87%, 55%, 0.994);
+    background: none;
+    border-radius: 3px;
+}
+.btnreset:hover{
+    background-color: hsla(60, 87%, 55%, 0.994);
+    color: black;
+}
+.btncalculate{
+    height: 25px;
+    margin-top: 15px;
+    color: green;
+    border: 1px solid green;
+    background: none;
+    border-radius: 3px;
+    width: 80px;
+}
+.btncalculate:hover{
+    background-color: green;
+    color: white;
+}
+.btnexpense{
+    height: 25px;
+    margin-top: 15px;
+    color: red;
+    border: 1px solid red;
+    background: none;
+    border-radius: 3px;
+    width: 100px;
+}
+.btnexpense:hover{
+    background-color: red;
+    color: white;
+}
+.inputbudget{
+    border: 1px solid green;
+    border-radius: 3px;
+    padding: 5px;
+    background-color: white;
+    margin-top: 5px;
+}
+.inputexpense{
+    border: 1px solid red;
+    border-radius: 3px;
+    padding: 5px;
+    background-color: white;
+    margin-top: 5px;
+}
+.exp{
+    margin-bottom: 10px;
+}
+
+.containerLabel{
+    border-bottom: 2px solid rgb(220, 214, 214);
+}
+.containerBudget{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid green;
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.containerExpense{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid red;
+    padding: 10px;
+}
+.containerIcone{
+    display: flex;
+    justify-content:space-between;
+    border-bottom: 1px solid rgb(220, 214, 214);
+}
+.containertitre{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+}
+.containerIcone>div{
+    text-align: center;
+}
+i{
+    color: #2d59a4;
+}
+
+.chfbudget, .chfbalance{
+    color: green;
+    font-weight: 500;
+}
+.chfexpense{
+    color: red;
+    font-weight: 500;
+}
