@@ -6,6 +6,7 @@ let btnexpense = document.querySelector('#btnexpense');
 let chfbudget = document.querySelector('.chfbudget');
 let chfexpense = document.querySelector('.chfexpense');
 let chfbalance = document.querySelector('.chfbalance');
+let containerLibelle = document.querySelector('.containerLibelle');
 
 // Création de l'objet pour stocker les valeur
 const valeur = {
@@ -55,6 +56,8 @@ btnexpense.addEventListener('click', () =>{
                 valeur.balance = valeur.budget - valeur.expense;
                 localStorage.setItem('valeur',JSON.stringify(valeur));
                 document.location.reload();
+                let boite = document.createElement('div');
+                containerLibelle.append(boite);
             } else {
                 valeur.expense = inputexpense.value;
                 localStorage.setItem('valeur',JSON.stringify(valeur));
