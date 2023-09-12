@@ -7,10 +7,23 @@ let chfbudget = document.querySelector('.chfbudget');
 let chfexpense = document.querySelector('.chfexpense');
 let chfbalance = document.querySelector('.chfbalance');
 
+// Création de l'objet pour stocker les valeur
+const valeurr = JSON.parse(localStorage.getItem('valeur'));
+const valeur = {
+    budget : inputbudget.value,
+    expense : inputexpense.value,
+    amount : inputamount.value,
+};
+
 // Ajouter un budget
 btncalculate.addEventListener('click', () =>{
-    chfbudget.textContent = inputbudget.value + ' F CFA'
-    inputbudget.value = '';
+    if (inputbudget.value !== '') {
+        chfbudget.textContent = inputbudget.value + ' F CFA'
+        inputbudget.value = '';
+    }
+    else{
+        alert('Veuillez entrer un montant pour le Budget')
+    }
 })
 // Ajouter une dépence
 btnexpense.addEventListener('click', () =>{
