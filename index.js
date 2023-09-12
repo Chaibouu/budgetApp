@@ -13,14 +13,17 @@ const valeur = {
     expense : '',
     balance : '',
 };
-
+// Affectation des valeurs 
 // Ajouter un budget
 btncalculate.addEventListener('click', () =>{
     if (inputbudget.value !== '') {
         if (localStorage.getItem('valeur')) {
             let valeurr = JSON.parse(localStorage.getItem('valeur'));
             let bbudget = valeurr.budget;
+            let eexpense = valeurr.expense;
+            valeur.expense = eexpense;
             valeur.budget = Number(inputbudget.value) + Number(bbudget);
+            valeur.balance = valeur.budget - valeur.expense;
             localStorage.setItem('valeur',JSON.stringify(valeur));
         } else {
             valeur.budget = inputbudget.value;
@@ -37,13 +40,25 @@ btncalculate.addEventListener('click', () =>{
 btnexpense.addEventListener('click', () =>{
     if (inputexpense.value !== '') {
         if (inputAmount.value !== '') {
-        
+            if (localStorage.getItem('valeur')) {
+                let valeurr = JSON.parse(localStorage.getItem('valeur'));
+                let bbudget = valeurr.budget;
+                let eexpense = valeurr.expense;
+                valeur.budget = bbudget ;
+                valeur.expense = Number(inputexpense.value) + Number(eexpense);
+                valeur.balance = valeur.budget - valeur.expense;
+                localStorage.setItem('valeur',JSON.stringify(valeur));
+                document.location.reload();
+            } else {
+                valeur.expense = inputexpense.value;
+                localStorage.setItem('valeur',JSON.stringify(valeur));
+            }
         } 
         else{
-            alert('Veuillez remplir le champ de description de la dépence ')
+            alert('Veuillez remplir le champ pour une dépence')
         }
     } 
     else{
-        alert('Veuillez remplir le champ pour une dépence')
+        alert('Veuillez remplir le champ de description de la dépence ')
     }
 })
