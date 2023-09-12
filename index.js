@@ -71,3 +71,4 @@ btnexpense.addEventListener('click', () =>{
         alert('Veuillez remplir le champ de description de la dépence ')
     }
 })
+
