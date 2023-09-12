@@ -13,7 +13,11 @@ const valeur = {
     expense : '',
     balance : '',
 };
-// Affectation des valeurs 
+// Affectation des valeurs dans label
+    let valeurr = JSON.parse(localStorage.getItem('valeur'));
+    chfbudget.textContent = valeurr.budget + ' F';
+    chfexpense.textContent = valeurr.expense + ' F';
+    chfbalance.textContent = valeurr.balance + ' F';
 // Ajouter un budget
 btncalculate.addEventListener('click', () =>{
     if (inputbudget.value !== '') {
@@ -25,9 +29,11 @@ btncalculate.addEventListener('click', () =>{
             valeur.budget = Number(inputbudget.value) + Number(bbudget);
             valeur.balance = valeur.budget - valeur.expense;
             localStorage.setItem('valeur',JSON.stringify(valeur));
+            document.location.reload();
         } else {
             valeur.budget = inputbudget.value;
             localStorage.setItem('valeur',JSON.stringify(valeur));
+            document.location.reload();
         }
     } 
     else{
