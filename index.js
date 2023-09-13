@@ -14,6 +14,14 @@ const valeur = {
     expense : '',
     balance : '',
 };
+
+
+// Création de l'objet pour stocker les libelles de dépence
+const tabLib = [];
+if (!localStorage.getItem('cles')) {
+    localStorage.setItem('cles',JSON.stringify(tabLib));
+}
+
 // Affectation des valeurs dans label
     let valeurr = JSON.parse(localStorage.getItem('valeur'));
     chfbudget.textContent = valeurr.budget + ' F';
@@ -55,9 +63,11 @@ btnexpense.addEventListener('click', () =>{
                 valeur.expense = Number(inputexpense.value) + Number(eexpense);
                 valeur.balance = valeur.budget - valeur.expense;
                 localStorage.setItem('valeur',JSON.stringify(valeur));
+                insert();
+                
                 document.location.reload();
-                let boite = document.createElement('div');
-                containerLibelle.append(boite);
+                // location.reload();
+              
             } else {
                 valeur.expense = inputexpense.value;
                 localStorage.setItem('valeur',JSON.stringify(valeur));
@@ -72,3 +82,35 @@ btnexpense.addEventListener('click', () =>{
     }
 })
 
+//Fonction permettant d'entrer les libellés    
+const insert = ()=>{
+      // insertion des Libelles
+      let boite = document.createElement('div');
+      containerLibelle.append(boite);
+      boite.classList.add('boite');
+      let para1 = document.createElement('p');
+      boite.append(para1)
+      let para2 = document.createElement('p');
+
+      boite.append(para2)
+      let para3 = document.createElement('p');
+      para3.textContent = 'icone';
+      boite.append(para3)
+
+      const libel = {
+        titre : inputAmount.value,
+        valu : inputexpense.value,
+        }
+        let tabb = JSON.parse(localStorage.getItem('cles'));
+
+        tabb.push(libel);
+        localStorage.setItem('cles',JSON.stringify(tabb));
+
+
+      let libb = JSON.parse(localStorage.getItem('cles'));
+    
+        para1.innerHTML = libb.titre;
+        para2.innerHTML = libb.valu;
+
+
+}
