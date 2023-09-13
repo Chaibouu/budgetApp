@@ -11,7 +11,7 @@ let containerLibelle = document.querySelector('.containerLibelle');
 let supprime = document.querySelector('.supprime');
 let editer = document.querySelector('.editer');
 let succes = document.querySelector('.succes');
-console.log(succes);
+let echecs = document.querySelector('.echecs')
 // Création de l'objet pour stocker les valeur
 const valeur = {
     budget : '',
@@ -115,7 +115,12 @@ btnexpense.addEventListener('click', () =>{
                 localStorage.setItem('valeur',JSON.stringify(valeur));
                 insert();
                 
-                document.location.reload();
+                echecs.style.display = 'block'
+                setTimeout(() => {
+                    echecs.style.display = 'none'
+                }, 2000);
+
+                // document.location.reload();
                 // location.reload();
               
             } else {

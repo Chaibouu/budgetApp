@@ -130,6 +130,13 @@ i{
     position: absolute;
     display: none;
 }
+.echecs{
+    border: 2px solid rgba(246, 35, 35, 0.887);
+    border-radius: 3px;
+    width: 300px;
+    position: absolute;
+    display: none;
+}
 .tete{
     background-color: rgba(104, 228, 104, 0.887);
     padding: 5px;
@@ -139,9 +146,18 @@ i{
     color: aliceblue;
     font-weight: 600;
 }
+.teete{
+    background-color: rgba(246, 35, 35, 0.887);
+    padding: 5px;
+    margin: 0px;
+    text-align: center;
+    font-size: 23px;
+    color: aliceblue;
+    font-weight: 600;
+}
 .corps{
     text-align: center;
-    font-size: 19px;
+    font-size: 18px;
     margin: 5px;
 }
 .container3{
