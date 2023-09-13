@@ -116,3 +116,10 @@ i{
     align-items: center;
     border-bottom: 1px solid rgb(41, 161, 217);
 }
+.editer{
+    margin-left: 20px;
+}
+.para1{
+    width: 100px;
+    padding-left: 30px;
+}
