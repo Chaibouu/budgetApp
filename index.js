@@ -10,6 +10,8 @@ let chfbalance = document.querySelector('.chfbalance');
 let containerLibelle = document.querySelector('.containerLibelle');
 let supprime = document.querySelector('.supprime');
 let editer = document.querySelector('.editer');
+let succes = document.querySelector('.succes');
+console.log(succes);
 // Création de l'objet pour stocker les valeur
 const valeur = {
     budget : '',
@@ -63,8 +65,9 @@ tabb.forEach(element => {
     boite.append(para3);
     para1.innerHTML = element.titre;
     para2.innerHTML = element.valu;
-   });
+   })
 
+   
 // Ajouter un budget
 btncalculate.addEventListener('click', () =>{
     if (inputbudget.value !== '') {
@@ -74,9 +77,17 @@ btncalculate.addEventListener('click', () =>{
             let eexpense = valeurr.expense;
             valeur.expense = eexpense;
             valeur.budget = Number(inputbudget.value) + Number(bbudget);
+            chfbudget.textContent = valeur.budget
             valeur.balance = valeur.budget - valeur.expense;
+            chfbalance.textContent = valeur.balance;
             localStorage.setItem('valeur',JSON.stringify(valeur));
-            document.location.reload();
+            succes.style.display = 'block'
+            setTimeout(() => {
+                succes.style.display = 'none'
+              }, 2000);
+              
+            // document.location.reload();
+            
         } else {
             let valeurr = JSON.parse(localStorage.getItem('valeur'));
             valeur.budget = Number(inputbudget.value);
