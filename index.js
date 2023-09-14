@@ -77,9 +77,9 @@ btncalculate.addEventListener('click', () =>{
             let eexpense = valeurr.expense;
             valeur.expense = eexpense;
             valeur.budget = Number(inputbudget.value) + Number(bbudget);
-            chfbudget.textContent = valeur.budget
+            chfbudget.textContent = valeur.budget  + ' F';;
             valeur.balance = valeur.budget - valeur.expense;
-            chfbalance.textContent = valeur.balance;
+            chfbalance.textContent = valeur.balance + ' F';;
             localStorage.setItem('valeur',JSON.stringify(valeur));
             succes.style.display = 'block'
             setTimeout(() => {
@@ -112,6 +112,8 @@ btnexpense.addEventListener('click', () =>{
                 valeur.budget = bbudget ;
                 valeur.expense = Number(inputexpense.value) + Number(eexpense);
                 valeur.balance = valeur.budget - valeur.expense;
+                chfexpense.textContent = valeur.expense + ' F';
+                chfbalance.textContent = valeur.balance + ' F';;
                 localStorage.setItem('valeur',JSON.stringify(valeur));
                 insert();
                 
