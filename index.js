@@ -77,9 +77,10 @@ btncalculate.addEventListener('click', () =>{
             let eexpense = valeurr.expense;
             valeur.expense = eexpense;
             valeur.budget = Number(inputbudget.value) + Number(bbudget);
-            chfbudget.textContent = valeur.budget  + ' F';;
+            chfbudget.textContent = valeur.budget  + ' F';
             valeur.balance = valeur.budget - valeur.expense;
-            chfbalance.textContent = valeur.balance + ' F';;
+            chfbalance.textContent = valeur.balance + ' F';
+            inputbudget.value = '';
             localStorage.setItem('valeur',JSON.stringify(valeur));
             succes.style.display = 'block'
             setTimeout(() => {
@@ -99,7 +100,7 @@ btncalculate.addEventListener('click', () =>{
         alert('Veuillez entrer un montant pour le Budget')
     }
 })
-
+console.log(inputbudget);
 
 // Ajouter une dépence
 btnexpense.addEventListener('click', () =>{
@@ -112,14 +113,19 @@ btnexpense.addEventListener('click', () =>{
                 valeur.budget = bbudget ;
                 valeur.expense = Number(inputexpense.value) + Number(eexpense);
                 valeur.balance = valeur.budget - valeur.expense;
-                chfexpense.textContent = valeur.expense + ' F';
-                chfbalance.textContent = valeur.balance + ' F';;
-                localStorage.setItem('valeur',JSON.stringify(valeur));
+                // chfexpense.textContent = valeur.expense + ' F';
+                // chfbalance.textContent = valeur.balance + ' F';
+                location.reload();
                 insert();
+                inputexpense.value = '';
+                inputAmount.value = '';
+                localStorage.setItem('valeur',JSON.stringify(valeur));
+                
                 
                 echecs.style.display = 'block'
                 setTimeout(() => {
                     echecs.style.display = 'none'
+                    
                 }, 2000);
 
                 // document.location.reload();
@@ -149,6 +155,7 @@ const insert = ()=>{
         let tabb = JSON.parse(localStorage.getItem('cles'));
         tabb.push(libel);
         localStorage.setItem('cles',JSON.stringify(tabb));
+        // location.reload();
 }
 
 // button supprimer un libellé
