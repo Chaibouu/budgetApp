@@ -19,6 +19,7 @@ const valeur = {
     balance : '',
 };
 
+let index = 0;
 
 //button reset value
 btnreset.addEventListener('click', () =>{
@@ -41,6 +42,8 @@ if (!localStorage.getItem('valeur')) {
     chfbudget.textContent = valeurr.budget + ' F';
     chfexpense.textContent = valeurr.expense + ' F';
     chfbalance.textContent = valeurr.balance + ' F';
+
+// Fonction qui permet de creer un 
 
 // Affichage des libelles
 let tabb = JSON.parse(localStorage.getItem('cles'));
@@ -113,9 +116,9 @@ btnexpense.addEventListener('click', () =>{
                 valeur.budget = bbudget ;
                 valeur.expense = Number(inputexpense.value) + Number(eexpense);
                 valeur.balance = valeur.budget - valeur.expense;
-                // chfexpense.textContent = valeur.expense + ' F';
-                // chfbalance.textContent = valeur.balance + ' F';
-                location.reload();
+                chfexpense.textContent = valeur.expense + ' F';
+                chfbalance.textContent = valeur.balance + ' F';
+                index++;
                 insert();
                 inputexpense.value = '';
                 inputAmount.value = '';
@@ -127,7 +130,7 @@ btnexpense.addEventListener('click', () =>{
                     echecs.style.display = 'none'
                     
                 }, 2000);
-
+            
                 // document.location.reload();
                 // location.reload();
               
@@ -149,6 +152,7 @@ btnexpense.addEventListener('click', () =>{
 const insert = ()=>{
       // insertion des Libelles
         const libel = {
+            id :index,
             titre : inputAmount.value,
             valu : inputexpense.value,
         }
