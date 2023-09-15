@@ -19,7 +19,6 @@ const valeur = {
     balance : '',
 };
 
-let index = 0;
 
 //button reset value
 btnreset.addEventListener('click', () =>{
@@ -46,8 +45,10 @@ if (!localStorage.getItem('valeur')) {
 // Fonction qui permet de creer un 
 
 // Affichage des libelles
-let tabb = JSON.parse(localStorage.getItem('cles'));
-tabb.forEach(element => {
+const afficheDepense = ()=>{
+    containerLibelle.innerHTML = '';
+    let tabb = JSON.parse(localStorage.getItem('cles'));
+    tabb.forEach(element => {
     let boite = document.createElement('div');
     containerLibelle.append(boite);
     boite.classList.add('boite');
@@ -70,6 +71,7 @@ tabb.forEach(element => {
     para2.innerHTML = element.valu;
    })
 
+}
    
 // Ajouter un budget
 btncalculate.addEventListener('click', () =>{
@@ -110,6 +112,9 @@ btnexpense.addEventListener('click', () =>{
     if (inputexpense.value !== '') {
         if (inputAmount.value !== '') {
             if (localStorage.getItem('valeur')) {
+                let tabb = JSON.parse(localStorage.getItem('cles'));
+                let result = tabb.find((produit)=> produit.titre == inputAmount.value)
+            if (result) {
                 let valeurr = JSON.parse(localStorage.getItem('valeur'));
                 let bbudget = valeurr.budget;
                 let eexpense = valeurr.expense;
@@ -118,13 +123,47 @@ btnexpense.addEventListener('click', () =>{
                 valeur.balance = valeur.budget - valeur.expense;
                 chfexpense.textContent = valeur.expense + ' F';
                 chfbalance.textContent = valeur.balance + ' F';
-                index++;
-                insert();
+                localStorage.setItem('valeur',JSON.stringify(valeur));
+                echecs.style.display = 'block'
+                setTimeout(() => {
+                    echecs.style.display = 'none'
+                    
+                }, 2000);
+            
+
+                result.valu = parseInt(result.valu) + parseInt(inputexpense.value);
+                localStorage.setItem('cles',JSON.stringify(tabb));
+                afficheDepense();
+
                 inputexpense.value = '';
                 inputAmount.value = '';
+            }
+            else{
+                let valeurr = JSON.parse(localStorage.getItem('valeur'));
+                let bbudget = valeurr.budget;
+                let eexpense = valeurr.expense;
+                valeur.budget = bbudget ;
+                valeur.expense = Number(inputexpense.value) + Number(eexpense);
+                valeur.balance = valeur.budget - valeur.expense;
+                chfexpense.textContent = valeur.expense + ' F';
+                chfbalance.textContent = valeur.balance + ' F';
+                insert();
+                
                 localStorage.setItem('valeur',JSON.stringify(valeur));
+                afficheDepense();
                 
+                let tabb = JSON.parse(localStorage.getItem('cles'));
+
+                chartj.data.labels = [];
+                chartj.data.datasets[0].data = [];
+                tabb.forEach(element => {
+                    chartj.data.labels.push(element.titre);
+                    chartj.data.datasets[0].data.push(element.valu);
+                    chartj.data.datasets[0].backgroundColor.push(colorr());
+                    chartj.update();
+                });
                 
+
                 echecs.style.display = 'block'
                 setTimeout(() => {
                     echecs.style.display = 'none'
@@ -134,6 +173,11 @@ btnexpense.addEventListener('click', () =>{
                 // document.location.reload();
                 // location.reload();
               
+                
+                inputexpense.value = '';
+                inputAmount.value = '';
+}
+
             } else {
                 valeur.expense = inputexpense.value;
                 localStorage.setItem('valeur',JSON.stringify(valeur));
@@ -151,12 +195,14 @@ btnexpense.addEventListener('click', () =>{
 //Fonction permettant d'entrer les libellés    
 const insert = ()=>{
       // insertion des Libelles
+      let tabb = JSON.parse(localStorage.getItem('cles'));
+     
         const libel = {
-            id :index,
+            id : tabb.length? tabb.length + 1: 1,
             titre : inputAmount.value,
             valu : inputexpense.value,
         }
-        let tabb = JSON.parse(localStorage.getItem('cles'));
+        
         tabb.push(libel);
         localStorage.setItem('cles',JSON.stringify(tabb));
         // location.reload();
@@ -172,3 +218,44 @@ const insert = ()=>{
 // editer.addEventListener('click',()=>{
 //     boite.style.backgroundColor = 'red'
 // })
+
+
+
+
+// =================chartjs=======================
+
+
+
+
+const ctx = document.getElementById('myChart');
+let chartj = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: [],
+      datasets: [{
+        data: [],
+        backgroundColor:[],
+        borderWidth: 1
+      }]
+    },
+    
+  });
+// fonction pour générer des couleur
+const colorr = () => {
+    let col = '0123456789ABCDEF';
+    let r = '#';
+    for (let i = 0; i < 6; i++) {
+        r +=  col[Math.floor(Math.random()*16)] 
+    }
+    return r;
+}
+console.log(colorr());
+// ==============================================
+
+
+
+
+
+// Affichage des libelles
+afficheDepense()
+
