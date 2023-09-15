@@ -124,16 +124,25 @@ btnexpense.addEventListener('click', () =>{
                 chfexpense.textContent = valeur.expense + ' F';
                 chfbalance.textContent = valeur.balance + ' F';
                 localStorage.setItem('valeur',JSON.stringify(valeur));
+                // permet de faire apparaitre et disparaitre la confrimation de depence en cas de doublons
                 echecs.style.display = 'block'
                 setTimeout(() => {
                     echecs.style.display = 'none'
                     
                 }, 2000);
-            
 
                 result.valu = parseInt(result.valu) + parseInt(inputexpense.value);
                 localStorage.setItem('cles',JSON.stringify(tabb));
                 afficheDepense();
+                // gestion des valeur de la chart grphiques
+                chartj.data.labels = [];
+                chartj.data.datasets[0].data = [];
+                tabb.forEach(element => {
+                    chartj.data.labels.push(element.titre);
+                    chartj.data.datasets[0].data.push(element.valu);
+                    chartj.data.datasets[0].backgroundColor.push(colorr());
+                    chartj.update();
+                });
 
                 inputexpense.value = '';
                 inputAmount.value = '';
@@ -151,9 +160,9 @@ btnexpense.addEventListener('click', () =>{
                 
                 localStorage.setItem('valeur',JSON.stringify(valeur));
                 afficheDepense();
-                
-                let tabb = JSON.parse(localStorage.getItem('cles'));
 
+                // gestion des valeur de la chart grphiques
+                let tabb = JSON.parse(localStorage.getItem('cles'));
                 chartj.data.labels = [];
                 chartj.data.datasets[0].data = [];
                 tabb.forEach(element => {
@@ -163,7 +172,7 @@ btnexpense.addEventListener('click', () =>{
                     chartj.update();
                 });
                 
-
+                // permet de faire apparaitre et disparaitre la confrimation de depence
                 echecs.style.display = 'block'
                 setTimeout(() => {
                     echecs.style.display = 'none'
@@ -176,8 +185,7 @@ btnexpense.addEventListener('click', () =>{
                 
                 inputexpense.value = '';
                 inputAmount.value = '';
-}
-
+                }
             } else {
                 valeur.expense = inputexpense.value;
                 localStorage.setItem('valeur',JSON.stringify(valeur));
@@ -223,10 +231,6 @@ const insert = ()=>{
 
 
 // =================chartjs=======================
-
-
-
-
 const ctx = document.getElementById('myChart');
 let chartj = new Chart(ctx, {
     type: 'doughnut',
@@ -250,10 +254,7 @@ const colorr = () => {
     return r;
 }
 console.log(colorr());
-// ==============================================
-
-
-
+// ================================================
 
 
 // Affichage des libelles
