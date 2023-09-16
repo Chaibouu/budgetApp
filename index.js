@@ -292,7 +292,15 @@ btnhistory.addEventListener('click', () =>{
     history.innerHTML=" ";
     afficheHistory();
     btnclose.style.display="block";
-
+    // gestion des valeur de la chart grphiques
+    chartj.data.labels = [];
+    chartj.data.datasets[0].data = [];
+    tabb.forEach(element => {
+        chartj.data.labels.push(element.titre);
+        chartj.data.datasets[0].data.push(element.valu);
+        chartj.data.datasets[0].backgroundColor.push(colorr());
+        chartj.update();
+    });
 })
 btnclose.addEventListener('click', () =>{
     history.innerHTML=" ";
