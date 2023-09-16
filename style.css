@@ -206,4 +206,7 @@ i{
         justify-content: center;
         align-items: center;
     }
+    .container, .container2, .container3{
+        width: 80%;
+    }
 }
