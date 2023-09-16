@@ -41,11 +41,11 @@ if (!localStorage.getItem('cles')) {
 if (!localStorage.getItem('valeur')) {
     localStorage.setItem('valeur', JSON.stringify(valeur))
 }
-    let valeurr = JSON.parse(localStorage.getItem('valeur'));
+ const ff = ()=>{    let valeurr = JSON.parse(localStorage.getItem('valeur'));
     chfbudget.textContent = valeurr.budget + ' F';
     chfexpense.textContent = valeurr.expense + ' F';
-    chfbalance.textContent = valeurr.balance + ' F';
-
+    chfbalance.textContent = valeurr.balance + ' F';}
+ff();
 // Fonction qui permet de creer un 
 
 // Affichage des libelles
@@ -305,15 +305,36 @@ btnclose.addEventListener('click', () =>{
 // Affichage des libelles
 afficheDepense()
 let supprime = document.querySelectorAll('.supprime');
-let tabb = JSON.parse(localStorage.getItem('cles'));
+let tabbb = JSON.parse(localStorage.getItem('cles'));
 document.addEventListener("DOMContentLoaded", (event) => {
-    supprime.forEach(element => {
-        element.addEventListener('click',()=>{
-            element.style.backgroundColor ='red'
-            console.log(supprime)
+    for (let i = 0; i < supprime.length; i++) {
+        supprime[i].addEventListener('click',(e)=>{
+            let asup = e.target.parentElement.parentElement.parentElement;
+            let asupId = tabbb[i].id;
+            let prix = tabbb[i].valu;
+            asup.remove();
+            const filteredtabb = tabbb.filter((tablea) => tablea.id !== asupId);
+            tabbb = filteredtabb;
+            console.log(filteredtabb);
+            console.log(prix);
+            
+            let va = JSON.parse(localStorage.getItem('valeur'));
+            va.expense = Number(va.expense) - Number(prix);
+            va.budget = Number(va.budget)
+            va.balance = Number(va.balance) + Number(prix);
+            localStorage.setItem('valeur',JSON.stringify(va));
+            localStorage.setItem('cles',JSON.stringify(tabbb));
+            ff();
+            afficheDepense()
+            location.reload();
         })
+        
       
         
-    }); 
-    console.log(supprime)
+    }
+    // supprime.forEach(element => {
+       
+        
+    // }); 
+    
  });
