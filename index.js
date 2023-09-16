@@ -4,6 +4,8 @@ let inputAmount = document.querySelector('#inputAmount');
 let btncalculate = document.querySelector('#btncalculate');
 let btnexpense = document.querySelector('#btnexpense');
 let btnreset = document.querySelector('.btnreset');
+let btnhistory = document.querySelector('.btnhistory');
+let btnclose = document.querySelector('.btnclose');
 let chfbudget = document.querySelector('.chfbudget');
 let chfexpense = document.querySelector('.chfexpense');
 let chfbalance = document.querySelector('.chfbalance');
@@ -11,7 +13,10 @@ let containerLibelle = document.querySelector('.containerLibelle');
 let supprime = document.querySelector('.supprime');
 let editer = document.querySelector('.editer');
 let succes = document.querySelector('.succes');
-let echecs = document.querySelector('.echecs')
+let echecs = document.querySelector('.echecs');
+let containerHistory = document.querySelector('.containerHistory');
+let history = document.querySelector('.history');
+
 // Création de l'objet pour stocker les valeur
 const valeur = {
     budget : '',
@@ -125,7 +130,8 @@ btnexpense.addEventListener('click', () =>{
                 chfbalance.textContent = valeur.balance + ' F';
                 localStorage.setItem('valeur',JSON.stringify(valeur));
                 // permet de faire apparaitre et disparaitre la confrimation de depence en cas de doublons
-                echecs.style.display = 'block'
+                btnhistory.style.display = 'block';
+                echecs.style.display = 'block';
                 setTimeout(() => {
                     echecs.style.display = 'none'
                     
@@ -173,7 +179,8 @@ btnexpense.addEventListener('click', () =>{
                 });
                 
                 // permet de faire apparaitre et disparaitre la confrimation de depence
-                echecs.style.display = 'block'
+                echecs.style.display = 'block';
+                btnhistory.style.display = 'block';
                 setTimeout(() => {
                     echecs.style.display = 'none'
                     
@@ -255,6 +262,45 @@ const colorr = () => {
 }
 console.log(colorr());
 // ================================================
+
+const afficheHistory = ()=>{
+    // containerHistory.innerHTML = '';
+    let tabb = JSON.parse(localStorage.getItem('cles'));
+    let entete = document.createElement('div');
+    history.append(entete);
+    entete.classList.add('entete');
+    entete.innerHTML = `<h5>#</h5> <h5>Expense Title</h5> <h5>Expense Value</h5>`
+    tabb.forEach(element => {
+    let boite = document.createElement('div');
+    history.append(boite);
+    boite.classList.add('boite');
+    let para1 = document.createElement('p');
+    boite.append(para1)
+    let para2 = document.createElement('p');
+    para2.classList.add('para2');
+    boite.append(para2)
+    let para3 = document.createElement('p');
+    boite.append(para3);
+    para1.innerHTML = element.id;
+    para2.innerHTML = element.titre;
+    para3.innerHTML = element.valu + ' F';
+   })
+
+}
+btnhistory.addEventListener('click', () =>{
+    let tabb = JSON.parse(localStorage.getItem('cles'));
+    history.innerHTML=" ";
+    afficheHistory();
+    btnclose.style.display="block";
+
+})
+btnclose.addEventListener('click', () =>{
+    history.innerHTML=" ";
+    btnclose.style.display="none";
+
+})
+
+
 
 
 // Affichage des libelles
