@@ -309,8 +309,11 @@ let tabb = JSON.parse(localStorage.getItem('cles'));
 document.addEventListener("DOMContentLoaded", (event) => {
     supprime.forEach(element => {
         element.addEventListener('click',()=>{
-            console.log()
+            element.style.backgroundColor ='red'
+            console.log(supprime)
         })
-        console.log()
+      
+        
     }); 
+    console.log(supprime)
  });
