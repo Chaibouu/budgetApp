@@ -10,15 +10,16 @@ main{
 }
 .containerLabel{
     display: flex;
+    justify-content: space-between;
 }
 .btnreset{
-    height: 25px;
     margin-top: 20px;
     margin-left: 20px;
     color: hsla(60, 87%, 55%, 0.994);
     border: 1px solid hsla(60, 87%, 55%, 0.994);
     background: none;
     border-radius: 3px;
+    padding: 10px;
 }
 .btnreset:hover{
     background-color: hsla(60, 87%, 55%, 0.994);
@@ -191,4 +192,18 @@ i{
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.myChart{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+    main{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 }
