@@ -309,8 +309,8 @@ let tabb = JSON.parse(localStorage.getItem('cles'));
 document.addEventListener("DOMContentLoaded", (event) => {
     supprime.forEach(element => {
         element.addEventListener('click',()=>{
-            console.log(tabb[i])
+            console.log()
         })
-        console.log(supprime)
+        console.log()
     }); 
  });
