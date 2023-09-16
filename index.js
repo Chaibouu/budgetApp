@@ -10,7 +10,6 @@ let chfbudget = document.querySelector('.chfbudget');
 let chfexpense = document.querySelector('.chfexpense');
 let chfbalance = document.querySelector('.chfbalance');
 let containerLibelle = document.querySelector('.containerLibelle');
-let supprime = document.querySelector('.supprime');
 let editer = document.querySelector('.editer');
 let succes = document.querySelector('.succes');
 let echecs = document.querySelector('.echecs');
@@ -110,7 +109,6 @@ btncalculate.addEventListener('click', () =>{
         alert('Veuillez entrer un montant pour le Budget')
     }
 })
-console.log(inputbudget);
 
 // Ajouter une dépence
 btnexpense.addEventListener('click', () =>{
@@ -223,19 +221,6 @@ const insert = ()=>{
         // location.reload();
 }
 
-// button supprimer un libellé
-// supprime.addEventListener('click',()=>{
-//     localStorage.removeItem("key");
-// })
-
-
-// button editer un libellé
-// editer.addEventListener('click',()=>{
-//     boite.style.backgroundColor = 'red'
-// })
-
-
-
 
 // =================chartjs=======================
 const ctx = document.getElementById('myChart');
@@ -260,7 +245,6 @@ const colorr = () => {
     }
     return r;
 }
-console.log(colorr());
 // ================================================
 
 const afficheHistory = ()=>{
@@ -309,8 +293,22 @@ btnclose.addEventListener('click', () =>{
 })
 
 
+// button supprimer un produit
 
+
+
+// button editer un libellé
+// editer.addEventListener('click',()=>{
+//     boite.style.backgroundColor = 'red'
+// })
 
 // Affichage des libelles
 afficheDepense()
-
+let supprime = document.querySelectorAll('.supprime');
+let tabb = JSON.parse(localStorage.getItem('cles'));
+document.addEventListener("DOMContentLoaded", (event) => {
+    supprime.forEach(element => {
+        element.addEventListener('click',()=>{
+            
+        })
+    });  });
