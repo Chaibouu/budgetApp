@@ -349,6 +349,7 @@ let tabbbb = JSON.parse(localStorage.getItem('cles'));
             localStorage.setItem('valeur',JSON.stringify(v));
             localStorage.setItem('cles',JSON.stringify(tabbbb));
             ffichreaffiche();
+            myChartjs();
         })
     }
 
