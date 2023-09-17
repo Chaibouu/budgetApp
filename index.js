@@ -41,11 +41,12 @@ if (!localStorage.getItem('cles')) {
 if (!localStorage.getItem('valeur')) {
     localStorage.setItem('valeur', JSON.stringify(valeur))
 }
- const ff = ()=>{    let valeurr = JSON.parse(localStorage.getItem('valeur'));
+ const ffichreaffiche = ()=>{    
+    let valeurr = JSON.parse(localStorage.getItem('valeur'));
     chfbudget.textContent = valeurr.budget + ' F';
     chfexpense.textContent = valeurr.expense + ' F';
     chfbalance.textContent = valeurr.balance + ' F';}
-ff();
+ffichreaffiche();
 // Fonction qui permet de creer un 
 
 // Affichage des libelles
@@ -293,17 +294,15 @@ btnclose.addEventListener('click', () =>{
 })
 
 
-// button supprimer un produit
 
 
 
-// button editer un libellé
-// editer.addEventListener('click',()=>{
-//     boite.style.backgroundColor = 'red'
-// })
+
 
 // Affichage des libelles
 afficheDepense()
+
+// button supprimer un produit
 let supprime = document.querySelectorAll('.supprime');
 let tabbb = JSON.parse(localStorage.getItem('cles'));
 document.addEventListener("DOMContentLoaded", (event) => {
@@ -315,26 +314,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
             asup.remove();
             const filteredtabb = tabbb.filter((tablea) => tablea.id !== asupId);
             tabbb = filteredtabb;
-            console.log(filteredtabb);
-            console.log(prix);
-            
             let va = JSON.parse(localStorage.getItem('valeur'));
             va.expense = Number(va.expense) - Number(prix);
             va.budget = Number(va.budget)
             va.balance = Number(va.balance) + Number(prix);
             localStorage.setItem('valeur',JSON.stringify(va));
             localStorage.setItem('cles',JSON.stringify(tabbb));
-            ff();
-            afficheDepense()
-            location.reload();
+            ffichreaffiche();
+            afficheDepense();
+            document.location.reload();
         })
         
       
         
     }
-    // supprime.forEach(element => {
-       
-        
-    // }); 
-    
  });
+
+
+ // button editer un libellé
+// editer.addEventListener('click',()=>{
+//     boite.style.backgroundColor = 'red'
+// })
