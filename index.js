@@ -250,6 +250,7 @@ const colorr = () => {
 }
 // ================================================
 
+// function du button pour afficher l'history
 const afficheHistory = ()=>{
     // containerHistory.innerHTML = '';
     let tabb = JSON.parse(localStorage.getItem('cles'));
@@ -274,6 +275,8 @@ const afficheHistory = ()=>{
    })
 
 }
+
+// button History
 btnhistory.addEventListener('click', () =>{
     let tabb = JSON.parse(localStorage.getItem('cles'));
     history.innerHTML=" ";
@@ -294,8 +297,6 @@ btnclose.addEventListener('click', () =>{
     btnclose.style.display="none";
 
 })
-
-
 
 // Affichage des libelles
 afficheDepense()
@@ -327,9 +328,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 // button editer un produit
-// editer.addEventListener('click',()=>{
-//     boite.style.backgroundColor = 'red'
-// })
 let editer = document.querySelectorAll('.editer');
 let tabbbb = JSON.parse(localStorage.getItem('cles'));
     for (let i = 0; i < editer.length; i++) {
@@ -353,7 +351,6 @@ let tabbbb = JSON.parse(localStorage.getItem('cles'));
             ffichreaffiche();
         })
     }
-
 
 // Affichage du circle graphiques
 myChartjs();
