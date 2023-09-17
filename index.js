@@ -10,7 +10,6 @@ let chfbudget = document.querySelector('.chfbudget');
 let chfexpense = document.querySelector('.chfexpense');
 let chfbalance = document.querySelector('.chfbalance');
 let containerLibelle = document.querySelector('.containerLibelle');
-let editer = document.querySelector('.editer');
 let succes = document.querySelector('.succes');
 let echecs = document.querySelector('.echecs');
 let containerHistory = document.querySelector('.containerHistory');
@@ -167,15 +166,7 @@ btnexpense.addEventListener('click', () =>{
                 afficheDepense();
 
                 // gestion des valeur de la chart grphiques
-                let tabb = JSON.parse(localStorage.getItem('cles'));
-                chartj.data.labels = [];
-                chartj.data.datasets[0].data = [];
-                tabb.forEach(element => {
-                    chartj.data.labels.push(element.titre);
-                    chartj.data.datasets[0].data.push(element.valu);
-                    chartj.data.datasets[0].backgroundColor.push(colorr());
-                    chartj.update();
-                });
+                myChartjs();
                 
                 // permet de faire apparaitre et disparaitre la confrimation de depence
                 echecs.style.display = 'block';
@@ -222,7 +213,18 @@ const insert = ()=>{
         // location.reload();
 }
 
-
+const myChartjs = ()=>{
+    let tabb = JSON.parse(localStorage.getItem('cles'));
+                chartj.data.labels = [];
+                chartj.data.datasets[0].data = [];
+                tabb.forEach(element => {
+                    chartj.data.labels.push(element.titre);
+                    chartj.data.datasets[0].data.push(element.valu);
+                    chartj.data.datasets[0].backgroundColor.push(colorr());
+                    chartj.update();
+                });
+}
+ 
 // =================chartjs=======================
 const ctx = document.getElementById('myChart');
 let chartj = new Chart(ctx, {
@@ -295,10 +297,6 @@ btnclose.addEventListener('click', () =>{
 
 
 
-
-
-
-
 // Affichage des libelles
 afficheDepense()
 
@@ -324,14 +322,38 @@ document.addEventListener("DOMContentLoaded", (event) => {
             afficheDepense();
             document.location.reload();
         })
-        
-      
-        
     }
- });
+});
 
 
- // button editer un libellé
+// button editer un produit
 // editer.addEventListener('click',()=>{
 //     boite.style.backgroundColor = 'red'
 // })
+let editer = document.querySelectorAll('.editer');
+let tabbbb = JSON.parse(localStorage.getItem('cles'));
+    for (let i = 0; i < editer.length; i++) {
+        editer[i].addEventListener('click',(e)=>{
+            let edi = e.target.parentElement.parentElement.parentElement;
+            let edititre = tabbbb[i].titre;
+            let prix = tabbbb[i].valu;
+            edi.remove();
+            inputAmount.value = edititre;
+            inputexpense.value = prix;
+
+            const filteredtabb = tabbbb.filter((tablea) => tablea.titre !== edititre);
+            tabbbb = filteredtabb;
+
+            let v = JSON.parse(localStorage.getItem('valeur'));
+            v.expense = Number(v.expense) - Number(prix);
+            v.budget = Number(v.budget)
+            v.balance = Number(v.balance) + Number(prix);
+            localStorage.setItem('valeur',JSON.stringify(v));
+            localStorage.setItem('cles',JSON.stringify(tabbbb));
+            ffichreaffiche();
+        })
+    }
+
+
+// Affichage du circle graphiques
+myChartjs();
