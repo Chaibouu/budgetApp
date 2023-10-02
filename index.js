@@ -185,7 +185,7 @@ btncalculate.addEventListener('click', () =>{
 btnexpense.addEventListener('click', () =>{
     if (inputexpense.value !== '') {
         if (inputAmount.value !== '') {
-            if (inputAmount.value > 0) {
+            if (inputexpense.value > 0) {
                 if (localStorage.getItem('valeur')) {
                     let tabb = JSON.parse(localStorage.getItem('cles'));
                     let result = tabb.find((produit)=> produit.titre == inputAmount.value)
