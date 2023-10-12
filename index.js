@@ -42,9 +42,9 @@ if (!localStorage.getItem('valeur')) {
 }
  const ffichreaffiche = ()=>{    
     let valeurr = JSON.parse(localStorage.getItem('valeur'));
-    chfbudget.textContent = valeurr.budget + ' F';
-    chfexpense.textContent = valeurr.expense + ' F';
-    chfbalance.textContent = valeurr.balance + ' F';}
+    chfbudget.textContent = valeurr.budget + 0 + ' F';
+    chfexpense.textContent = valeurr.expense + 0 + ' F';
+    chfbalance.textContent = valeurr.balance + 0 + ' F';}
 ffichreaffiche();
 // Fonction qui permet de creer un 
 
@@ -202,7 +202,9 @@ btnexpense.addEventListener('click', () =>{
                     // permet de faire apparaitre et disparaitre la confrimation de depence en cas de doublons
                     btnhistory.style.display = 'block';
                     echecs.style.display = 'block';
-                    setTimeout(() => {
+                    echecs.firstElementChild.textContent = 'Ajout de la dépense' ;
+                    echecs.lastElementChild.textContent = 'Votre dépense à été ajouter avec succès'
+                            setTimeout(() => {
                         echecs.style.display = 'none'
                         
                     }, 2000);
@@ -243,6 +245,8 @@ btnexpense.addEventListener('click', () =>{
                     // permet de faire apparaitre et disparaitre la confrimation de depence
                     echecs.style.display = 'block';
                     btnhistory.style.display = 'block';
+                    echecs.firstElementChild.textContent = 'Ajout de la dépense' ;
+                    echecs.lastElementChild.textContent = 'Votre dépense à été ajouter avec succès'
                     setTimeout(() => {
                         echecs.style.display = 'none'
                         
