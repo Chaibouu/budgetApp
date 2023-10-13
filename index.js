@@ -14,6 +14,7 @@ let succes = document.querySelector('.succes');
 let echecs = document.querySelector('.echecs');
 let containerHistory = document.querySelector('.containerHistory');
 let history = document.querySelector('.history');
+let editExpense = document.querySelector('.editExpense');
 
 // Création de l'objet pour stocker les valeur
 const valeur = {
@@ -22,6 +23,7 @@ const valeur = {
     balance : '',
 };
 
+let filteredtabb='';
 
 //button reset value
 btnreset.addEventListener('click', () =>{
@@ -90,14 +92,32 @@ let tabbb = JSON.parse(localStorage.getItem('cles'));
             const filteredtabb = tabbb.filter((tablea) => tablea.id !== asupId);
             tabbb = filteredtabb;
             let va = JSON.parse(localStorage.getItem('valeur'));
-            va.expense = Number(va.expense) - Number(prix);
+            // va.expense = Number(va.expense) - Number(prix);
+            if (va.expense > 0) {
+                va.expense = Number(va.expense) - Number(prix);
+            }
+            else{
+                va.expense = 0;
+            }
             va.budget = Number(va.budget)
             va.balance = Number(va.balance) + Number(prix);
             localStorage.setItem('valeur',JSON.stringify(va));
             localStorage.setItem('cles',JSON.stringify(tabbb));
             ffichreaffiche();
             afficheDepense();
-            document.location.reload();
+            // mettre ajout l'historique
+            history.innerHTML=" ";
+            afficheHistory();
+            // gestion des valeur de la chart grphiques
+            myChartjs();
+            echecs.style.display = 'block';
+            echecs.firstElementChild.textContent = 'Dépense supprimer' ;
+            echecs.lastElementChild.textContent = 'Votre dépense à été supprimer avec succès' 
+            setTimeout(() => {
+                echecs.style.display = 'none'
+                
+            }, 3000);
+            
         })
     }
 
@@ -107,6 +127,9 @@ let editer = document.querySelectorAll('.editer');
 let tabbbb = JSON.parse(localStorage.getItem('cles'));
     for (let i = 0; i < editer.length; i++) {
         editer[i].addEventListener('click',(e)=>{
+            editExpense.style.display = "block";
+            btnexpense.style.display = "none";
+            
             let edi = e.target.parentElement.parentElement.parentElement;
             let edititre = tabbbb[i].titre;
             let prix = tabbbb[i].valu;
@@ -114,17 +137,26 @@ let tabbbb = JSON.parse(localStorage.getItem('cles'));
             inputAmount.value = edititre;
             inputexpense.value = prix;
 
-            const filteredtabb = tabbbb.filter((tablea) => tablea.titre !== edititre);
-            tabbbb = filteredtabb;
-
+            filteredtabb = tabbbb.findIndex((tablea) => tablea.titre === edititre);
+            console.log(filteredtabb);
+            // tabbbb = filteredtabb;
+            // console.log(filteredtabb);
             let v = JSON.parse(localStorage.getItem('valeur'));
-            v.expense = Number(v.expense) - Number(prix);
+            if (v.expense > 0) {
+                v.expense = Number(v.expense) - Number(prix);
+            }
+            else{
+                v.expense = 0;
+            }
             v.budget = Number(v.budget)
             v.balance = Number(v.balance) + Number(prix);
-            localStorage.setItem('valeur',JSON.stringify(v));
+            // localStorage.setItem('valeur',JSON.stringify(v));
             localStorage.setItem('cles',JSON.stringify(tabbbb));
             ffichreaffiche();
             myChartjs();
+            // mettre à jour l'historique
+            history.innerHTML=" ";
+            afficheHistory();
         })
     }
 
@@ -188,44 +220,44 @@ btnexpense.addEventListener('click', () =>{
             if (inputexpense.value > 0) {
                 if (localStorage.getItem('valeur')) {
                     let tabb = JSON.parse(localStorage.getItem('cles'));
-                    let result = tabb.find((produit)=> produit.titre == inputAmount.value)
-                if (result) {
-                    let valeurr = JSON.parse(localStorage.getItem('valeur'));
-                    let bbudget = valeurr.budget;
-                    let eexpense = valeurr.expense;
-                    valeur.budget = bbudget ;
-                    valeur.expense = Number(inputexpense.value) + Number(eexpense);
-                    valeur.balance = valeur.budget - valeur.expense;
-                    chfexpense.textContent = valeur.expense + ' F';
-                    chfbalance.textContent = valeur.balance + ' F';
-                    localStorage.setItem('valeur',JSON.stringify(valeur));
-                    // permet de faire apparaitre et disparaitre la confrimation de depence en cas de doublons
-                    btnhistory.style.display = 'block';
-                    echecs.style.display = 'block';
-                    echecs.firstElementChild.textContent = 'Ajout de la dépense' ;
-                    echecs.lastElementChild.textContent = 'Votre dépense à été ajouter avec succès'
-                            setTimeout(() => {
-                        echecs.style.display = 'none'
+                    // let result = tabb.find((produit)=> produit.titre == inputAmount.value)
+                // if (result) {
+                //     let valeurr = JSON.parse(localStorage.getItem('valeur'));
+                //     let bbudget = valeurr.budget;
+                //     let eexpense = valeurr.expense;
+                //     valeur.budget = bbudget ;
+                //     valeur.expense = Number(inputexpense.value) + Number(eexpense);
+                //     valeur.balance = valeur.budget - valeur.expense;
+                //     chfexpense.textContent = valeur.expense + ' F';
+                //     chfbalance.textContent = valeur.balance + ' F';
+                //     localStorage.setItem('valeur',JSON.stringify(valeur));
+                //     // permet de faire apparaitre et disparaitre la confrimation de depence en cas de doublons
+                //     btnhistory.style.display = 'block';
+                //     echecs.style.display = 'block';
+                //     echecs.firstElementChild.textContent = 'Ajout de la dépense' ;
+                //     echecs.lastElementChild.textContent = 'Votre dépense à été ajouter avec succès'
+                //             setTimeout(() => {
+                //         echecs.style.display = 'none'
                         
-                    }, 2000);
+                //     }, 2000);
     
-                    result.valu = parseInt(result.valu) + parseInt(inputexpense.value);
-                    localStorage.setItem('cles',JSON.stringify(tabb));
-                    afficheDepense();
-                    // gestion des valeur de la chart grphiques
-                    chartj.data.labels = [];
-                    chartj.data.datasets[0].data = [];
-                    tabb.forEach(element => {
-                        chartj.data.labels.push(element.titre);
-                        chartj.data.datasets[0].data.push(element.valu);
-                        chartj.data.datasets[0].backgroundColor.push(colorr());
-                        chartj.update();
-                    });
+                //     result.valu = parseInt(result.valu) + parseInt(inputexpense.value);
+                //     localStorage.setItem('cles',JSON.stringify(tabb));
+                //     afficheDepense();
+                //     // gestion des valeur de la chart grphiques
+                //     chartj.data.labels = [];
+                //     chartj.data.datasets[0].data = [];
+                //     tabb.forEach(element => {
+                //         chartj.data.labels.push(element.titre);
+                //         chartj.data.datasets[0].data.push(element.valu);
+                //         chartj.data.datasets[0].backgroundColor.push(colorr());
+                //         chartj.update();
+                //     });
     
-                    inputexpense.value = '';
-                    inputAmount.value = '';
-                }
-                else{
+                //     inputexpense.value = '';
+                //     inputAmount.value = '';
+                // }
+                // else{
                     let valeurr = JSON.parse(localStorage.getItem('valeur'));
                     let bbudget = valeurr.budget;
                     let eexpense = valeurr.expense;
@@ -259,10 +291,10 @@ btnexpense.addEventListener('click', () =>{
                     inputexpense.value = '';
                     inputAmount.value = '';
                     }
-                } else {
-                    valeur.expense = inputexpense.value;
-                    localStorage.setItem('valeur',JSON.stringify(valeur));
-                }
+                // } else {
+                //     valeur.expense = inputexpense.value;
+                //     localStorage.setItem('valeur',JSON.stringify(valeur));
+                // }
             }
             else{
                 echecs.style.display = 'block';
@@ -395,7 +427,88 @@ btnclose.addEventListener('click', () =>{
     btnclose.style.display="none";
 
 })
+// button ajouter une modification
+editExpense.addEventListener('click', () =>{
+    let stockedit = JSON.parse(localStorage.getItem('cles'));
+    console.log(stockedit);
+    console.log(filteredtabb);
+    console.log(stockedit[filteredtabb].titre);
+    stockedit[filteredtabb].titre = inputAmount.value;
+    stockedit[filteredtabb].valu = inputexpense.value;
+    let a = stockedit[filteredtabb].valu;
+    let b = inputexpense.value;
+    let c = 0;
+    localStorage.setItem('cles',JSON.stringify(stockedit));
+    afficheDepense();
+    // mettre à jour l'historique
+    history.innerHTML=" ";
+    afficheHistory();
+    // gestion des valeur de la chart grphiques
+    myChartjs();
 
+    if (a>b) {
+        c = a - b;
+    }
+    else{
+        c = b - a;
+    }
+    console.log(a);
+    console.log(b);
+    console.log(c);
+    let locc = JSON.parse(localStorage.getItem('valeur'));
+    locc.expense = Number(locc.expense) + Number(c);
+    locc.budget = Number(locc.budget)
+    locc.balance = Number(locc.budget) - Number(locc.expense);
+    
+    localStorage.setItem('valeur',JSON.stringify(locc));
+    chfexpense.textContent = locc.expense + ' F';
+    chfbalance.textContent = locc.balance + ' F';
+    console.log(locc);
+    // ffichreaffiche();
+   
+    
+
+
+
+    // let tabb = JSON.parse(localStorage.getItem('cles'));
+    // let result = tabb.find((produit)=> produit.titre == inputAmount.value)
+    // if(result) {
+    //  let valeurr = JSON.parse(localStorage.getItem('valeur'));
+    //  let bbudget = valeurr.budget;
+    //  let eexpense = valeurr.expense;
+    //  valeur.budget = bbudget ;
+    //  valeur.expense = Number(inputexpense.value) + Number(eexpense);
+    //  valeur.balance = valeur.budget - valeur.expense;
+    //  chfexpense.textContent = valeur.expense + ' F';
+    //  chfbalance.textContent = valeur.balance + ' F';
+    //  localStorage.setItem('valeur',JSON.stringify(valeur));
+    //  // permet de faire apparaitre et disparaitre la confrimation de depence en cas de doublons
+    //  btnhistory.style.display = 'block';
+    //  echecs.style.display = 'block';
+    //  echecs.firstElementChild.textContent = 'Ajout de la dépense' ;
+    //  echecs.lastElementChild.textContent = 'Votre dépense à été ajouter avec succès'
+    //          setTimeout(() => {
+    //      echecs.style.display = 'none'
+         
+    //  }, 2000);
+     
+    //  result.valu = parseInt(result.valu) + parseInt(inputexpense.value);
+    //  localStorage.setItem('cles',JSON.stringify(tabb));
+    //  afficheDepense();
+    //  // gestion des valeur de la chart grphiques
+    //  chartj.data.labels = [];
+    //  chartj.data.datasets[0].data = [];
+    //  tabb.forEach(element => {
+    //          chartj.data.labels.push(element.titre);
+    //          chartj.data.datasets[0].data.push(element.valu);
+    //          chartj.data.datasets[0].backgroundColor.push(colorr());
+    //          chartj.update();
+    //      });
+       inputexpense.value = '';
+        inputAmount.value = '';
+    //  }
+
+})
 // Affichage des libelles
 afficheDepense()
 
