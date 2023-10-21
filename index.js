@@ -466,47 +466,8 @@ editExpense.addEventListener('click', () =>{
     console.log(locc);
     // ffichreaffiche();
    
-    
-
-
-
-    // let tabb = JSON.parse(localStorage.getItem('cles'));
-    // let result = tabb.find((produit)=> produit.titre == inputAmount.value)
-    // if(result) {
-    //  let valeurr = JSON.parse(localStorage.getItem('valeur'));
-    //  let bbudget = valeurr.budget;
-    //  let eexpense = valeurr.expense;
-    //  valeur.budget = bbudget ;
-    //  valeur.expense = Number(inputexpense.value) + Number(eexpense);
-    //  valeur.balance = valeur.budget - valeur.expense;
-    //  chfexpense.textContent = valeur.expense + ' F';
-    //  chfbalance.textContent = valeur.balance + ' F';
-    //  localStorage.setItem('valeur',JSON.stringify(valeur));
-    //  // permet de faire apparaitre et disparaitre la confrimation de depence en cas de doublons
-    //  btnhistory.style.display = 'block';
-    //  echecs.style.display = 'block';
-    //  echecs.firstElementChild.textContent = 'Ajout de la dépense' ;
-    //  echecs.lastElementChild.textContent = 'Votre dépense à été ajouter avec succès'
-    //          setTimeout(() => {
-    //      echecs.style.display = 'none'
-         
-    //  }, 2000);
-     
-    //  result.valu = parseInt(result.valu) + parseInt(inputexpense.value);
-    //  localStorage.setItem('cles',JSON.stringify(tabb));
-    //  afficheDepense();
-    //  // gestion des valeur de la chart grphiques
-    //  chartj.data.labels = [];
-    //  chartj.data.datasets[0].data = [];
-    //  tabb.forEach(element => {
-    //          chartj.data.labels.push(element.titre);
-    //          chartj.data.datasets[0].data.push(element.valu);
-    //          chartj.data.datasets[0].backgroundColor.push(colorr());
-    //          chartj.update();
-    //      });
-       inputexpense.value = '';
-        inputAmount.value = '';
-    //  }
+    inputexpense.value = '';
+    inputAmount.value = '';
 
 })
 // Affichage des libelles
