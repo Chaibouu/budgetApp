@@ -493,9 +493,7 @@ editExpense.addEventListener('click', () =>{
                         chfbalance.textContent = locc.balance + ' F';
                         console.log(locc);
                     }
-                    console.log(a);
-                    console.log(b);
-                    console.log(c);
+
 
                     // ffichreaffiche();
                 
