@@ -24,6 +24,7 @@ const valeur = {
 };
 
 let filteredtabb='';
+let aa = 0;
 
 //button reset value
 btnreset.addEventListener('click', () =>{
@@ -138,7 +139,8 @@ let tabbbb = JSON.parse(localStorage.getItem('cles'));
             inputexpense.value = prix;
 
             filteredtabb = tabbbb.findIndex((tablea) => tablea.titre === edititre);
-            console.log(filteredtabb);
+            aa = tabbbb[filteredtabb].valu;
+            console.log(aa);
             // tabbbb = filteredtabb;
             // console.log(filteredtabb);
             let v = JSON.parse(localStorage.getItem('valeur'));
@@ -155,8 +157,8 @@ let tabbbb = JSON.parse(localStorage.getItem('cles'));
             ffichreaffiche();
             myChartjs();
             // mettre à jour l'historique
-            history.innerHTML=" ";
-            afficheHistory();
+            // history.innerHTML=" ";
+            // afficheHistory();
         })
     }
 
@@ -432,42 +434,61 @@ editExpense.addEventListener('click', () =>{
     let stockedit = JSON.parse(localStorage.getItem('cles'));
     console.log(stockedit);
     console.log(filteredtabb);
-    console.log(stockedit[filteredtabb].titre);
+    console.log(stockedit[filteredtabb]);
     stockedit[filteredtabb].titre = inputAmount.value;
     stockedit[filteredtabb].valu = inputexpense.value;
-    let a = stockedit[filteredtabb].valu;
+    let a = aa
     let b = inputexpense.value;
     let c = 0;
     localStorage.setItem('cles',JSON.stringify(stockedit));
     afficheDepense();
     // mettre à jour l'historique
-    history.innerHTML=" ";
-    afficheHistory();
+    // history.innerHTML=" ";
+    // afficheHistory();
+    // btnclose.style.display="block";
     // gestion des valeur de la chart grphiques
     myChartjs();
 
     if (a>b) {
         c = a - b;
+        let locc = JSON.parse(localStorage.getItem('valeur'));
+        locc.expense = Number(locc.expense) - Number(c);
+        locc.budget = Number(locc.budget)
+        locc.balance = Number(locc.budget) - Number(locc.expense);
+        
+        localStorage.setItem('valeur',JSON.stringify(locc));
+        chfexpense.textContent = locc.expense + ' F';
+        chfbalance.textContent = locc.balance + ' F';
+        console.log(locc);
     }
     else{
         c = b - a;
+        let locc = JSON.parse(localStorage.getItem('valeur'));
+        locc.expense = Number(locc.expense) + Number(c);
+        locc.budget = Number(locc.budget)
+        locc.balance = Number(locc.budget) - Number(locc.expense);
+        
+        localStorage.setItem('valeur',JSON.stringify(locc));
+        chfexpense.textContent = locc.expense + ' F';
+        chfbalance.textContent = locc.balance + ' F';
+        console.log(locc);
     }
     console.log(a);
     console.log(b);
     console.log(c);
-    let locc = JSON.parse(localStorage.getItem('valeur'));
-    locc.expense = Number(locc.expense) + Number(c);
-    locc.budget = Number(locc.budget)
-    locc.balance = Number(locc.budget) - Number(locc.expense);
     
-    localStorage.setItem('valeur',JSON.stringify(locc));
-    chfexpense.textContent = locc.expense + ' F';
-    chfbalance.textContent = locc.balance + ' F';
-    console.log(locc);
     // ffichreaffiche();
    
     inputexpense.value = '';
     inputAmount.value = '';
+
+    echecs.style.display = 'block';
+    echecs.firstElementChild.textContent = 'Tâche Modifier' ;
+    echecs.lastElementChild.textContent = 'Votre tâche à été modifier avec succès' 
+    setTimeout(() => {
+        echecs.style.display = 'none'
+        
+    }, 3000);
 
 })
 // Affichage des libelles
