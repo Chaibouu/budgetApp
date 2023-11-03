@@ -222,44 +222,44 @@ btnexpense.addEventListener('click', () =>{
             if (inputexpense.value > 0) {
                 if (localStorage.getItem('valeur')) {
                     let tabb = JSON.parse(localStorage.getItem('cles'));
-                    // let result = tabb.find((produit)=> produit.titre == inputAmount.value)
-                // if (result) {
-                //     let valeurr = JSON.parse(localStorage.getItem('valeur'));
-                //     let bbudget = valeurr.budget;
-                //     let eexpense = valeurr.expense;
-                //     valeur.budget = bbudget ;
-                //     valeur.expense = Number(inputexpense.value) + Number(eexpense);
-                //     valeur.balance = valeur.budget - valeur.expense;
-                //     chfexpense.textContent = valeur.expense + ' F';
-                //     chfbalance.textContent = valeur.balance + ' F';
-                //     localStorage.setItem('valeur',JSON.stringify(valeur));
-                //     // permet de faire apparaitre et disparaitre la confrimation de depence en cas de doublons
-                //     btnhistory.style.display = 'block';
-                //     echecs.style.display = 'block';
-                //     echecs.firstElementChild.textContent = 'Ajout de la dépense' ;
-                //     echecs.lastElementChild.textContent = 'Votre dépense à été ajouter avec succès'
-                //             setTimeout(() => {
-                //         echecs.style.display = 'none'
+                    let result = tabb.find((produit)=> produit.titre == inputAmount.value)
+                if (result) {
+                    let valeurr = JSON.parse(localStorage.getItem('valeur'));
+                    let bbudget = valeurr.budget;
+                    let eexpense = valeurr.expense;
+                    valeur.budget = bbudget ;
+                    valeur.expense = Number(inputexpense.value) + Number(eexpense);
+                    valeur.balance = valeur.budget - valeur.expense;
+                    chfexpense.textContent = valeur.expense + ' F';
+                    chfbalance.textContent = valeur.balance + ' F';
+                    localStorage.setItem('valeur',JSON.stringify(valeur));
+                    // permet de faire apparaitre et disparaitre la confrimation de depence en cas de doublons
+                    btnhistory.style.display = 'block';
+                    echecs.style.display = 'block';
+                    echecs.firstElementChild.textContent = 'Ajout de la dépense' ;
+                    echecs.lastElementChild.textContent = 'Votre dépense à été ajouter avec succès'
+                            setTimeout(() => {
+                        echecs.style.display = 'none'
                         
-                //     }, 2000);
+                    }, 2000);
     
-                //     result.valu = parseInt(result.valu) + parseInt(inputexpense.value);
-                //     localStorage.setItem('cles',JSON.stringify(tabb));
-                //     afficheDepense();
-                //     // gestion des valeur de la chart grphiques
-                //     chartj.data.labels = [];
-                //     chartj.data.datasets[0].data = [];
-                //     tabb.forEach(element => {
-                //         chartj.data.labels.push(element.titre);
-                //         chartj.data.datasets[0].data.push(element.valu);
-                //         chartj.data.datasets[0].backgroundColor.push(colorr());
-                //         chartj.update();
-                //     });
+                    result.valu = parseInt(result.valu) + parseInt(inputexpense.value);
+                    localStorage.setItem('cles',JSON.stringify(tabb));
+                    afficheDepense();
+                    // gestion des valeur de la chart grphiques
+                    chartj.data.labels = [];
+                    chartj.data.datasets[0].data = [];
+                    tabb.forEach(element => {
+                        chartj.data.labels.push(element.titre);
+                        chartj.data.datasets[0].data.push(element.valu);
+                        chartj.data.datasets[0].backgroundColor.push(colorr());
+                        chartj.update();
+                    });
     
-                //     inputexpense.value = '';
-                //     inputAmount.value = '';
-                // }
-                // else{
+                    inputexpense.value = '';
+                    inputAmount.value = '';
+                }
+                else{
                     let valeurr = JSON.parse(localStorage.getItem('valeur'));
                     let bbudget = valeurr.budget;
                     let eexpense = valeurr.expense;
@@ -293,7 +293,8 @@ btnexpense.addEventListener('click', () =>{
                     inputexpense.value = '';
                     inputAmount.value = '';
                     }
-                // } else {
+                 } 
+                //else {
                 //     valeur.expense = inputexpense.value;
                 //     localStorage.setItem('valeur',JSON.stringify(valeur));
                 // }
@@ -431,67 +432,116 @@ btnclose.addEventListener('click', () =>{
 })
 // button ajouter une modification
 editExpense.addEventListener('click', () =>{
-    if (condition) {
-        let stockedit = JSON.parse(localStorage.getItem('cles'));
-        console.log(stockedit);
-        console.log(filteredtabb);
-        console.log(stockedit[filteredtabb]);
-        stockedit[filteredtabb].titre = inputAmount.value;
-        stockedit[filteredtabb].valu = inputexpense.value;
-        let a = aa
-        let b = inputexpense.value;
-        let c = 0;
-        localStorage.setItem('cles',JSON.stringify(stockedit));
-        afficheDepense();
-        // mettre à jour l'historique
-        // history.innerHTML=" ";
-        // afficheHistory();
-        // btnclose.style.display="block";
-        // gestion des valeur de la chart grphiques
-        myChartjs();
+    if (inputAmount.value != '') {
+        if (inputexpense.value != '') {
+            if (inputexpense.value > 0) {
+                // if (localStorage.getItem('valeur')) {
+                //     let tabb = JSON.parse(localStorage.getItem('cles'));
+                //     let result = tabb.find((produit)=> produit.titre == inputAmount.value)
+                //     if (result) {
+                //         let stockedit = JSON.parse(localStorage.getItem('cles'));
 
-        if (a>b) {
-            c = a - b;
-            let locc = JSON.parse(localStorage.getItem('valeur'));
-            locc.expense = Number(locc.expense) - Number(c);
-            locc.budget = Number(locc.budget)
-            locc.balance = Number(locc.budget) - Number(locc.expense);
+                //         let nomrempl = stockedit[filteredtabb].titre
+                //         let res = stockedit.filter(el => el.titre !== nomrempl)
+                //         console.log(res);
+                //         stockedit = res
+                //         localStorage.setItem('cles',JSON.stringify(stockedit));
 
-            localStorage.setItem('valeur',JSON.stringify(locc));
-            chfexpense.textContent = locc.expense + ' F';
-            chfbalance.textContent = locc.balance + ' F';
-            console.log(locc);
+
+                //         editExpense.style.display = "none";
+                //         btnexpense.style.display = "block";
+                //     }
+                // }
+                // else{
+                    let stockedit = JSON.parse(localStorage.getItem('cles'));
+
+                    stockedit[filteredtabb].titre = inputAmount.value;
+                    stockedit[filteredtabb].valu = inputexpense.value;
+                    let a = aa
+                    let b = inputexpense.value;
+                    let c = 0;
+                    localStorage.setItem('cles',JSON.stringify(stockedit));
+                    afficheDepense();
+                    // mettre à jour l'historique
+                    // history.innerHTML=" ";
+                    // afficheHistory();
+                    // btnclose.style.display="block";
+                    // gestion des valeur de la chart grphiques
+                    myChartjs();
+
+                    if (a>b) {
+                        c = a - b;
+                        let locc = JSON.parse(localStorage.getItem('valeur'));
+                        locc.expense = Number(locc.expense) - Number(c);
+                        locc.budget = Number(locc.budget)
+                        locc.balance = Number(locc.budget) - Number(locc.expense);
+
+                        localStorage.setItem('valeur',JSON.stringify(locc));
+                        chfexpense.textContent = locc.expense + ' F';
+                        chfbalance.textContent = locc.balance + ' F';
+                        console.log(locc);
+                    }
+                    else{
+                        c = b - a;
+                        let locc = JSON.parse(localStorage.getItem('valeur'));
+                        locc.expense = Number(locc.expense) + Number(c);
+                        locc.budget = Number(locc.budget)
+                        locc.balance = Number(locc.budget) - Number(locc.expense);
+
+                        localStorage.setItem('valeur',JSON.stringify(locc));
+                        chfexpense.textContent = locc.expense + ' F';
+                        chfbalance.textContent = locc.balance + ' F';
+                        console.log(locc);
+                    }
+                    console.log(a);
+                    console.log(b);
+                    console.log(c);
+
+                    // ffichreaffiche();
+                
+                    inputexpense.value = '';
+                    inputAmount.value = '';
+
+                    echecs.style.display = 'block';
+                    echecs.firstElementChild.textContent = 'Tâche Modifier' ;
+                    echecs.lastElementChild.textContent = 'Votre tâche à été modifier avec succès' 
+                    setTimeout(() => {
+                        echecs.style.display = 'none'
+
+                    }, 3000);
+                    editExpense.style.display = "none";
+                    btnexpense.style.display = "block";
+                // }
+                
+            }
+            else{
+                echecs.style.display = 'block';
+                echecs.firstElementChild.textContent = 'Error' ;
+                echecs.lastElementChild.textContent = 'Veuillez entrer une valeur valide' 
+                setTimeout(() => {
+                    echecs.style.display = 'none'
+
+                }, 3000);
+            }
         }
         else{
-            c = b - a;
-            let locc = JSON.parse(localStorage.getItem('valeur'));
-            locc.expense = Number(locc.expense) + Number(c);
-        locc.budget = Number(locc.budget)
-        locc.balance = Number(locc.budget) - Number(locc.expense);
-        
-        localStorage.setItem('valeur',JSON.stringify(locc));
-        chfexpense.textContent = locc.expense + ' F';
-        chfbalance.textContent = locc.balance + ' F';
-        console.log(locc);
+            echecs.style.display = 'block';
+                echecs.firstElementChild.textContent = 'Error' ;
+                echecs.lastElementChild.textContent = 'Veuillez remplir le montant de la dépence' 
+                setTimeout(() => {
+                    echecs.style.display = 'none'
+                    
+                }, 3000);
         }
-        console.log(a);
-        console.log(b);
-        console.log(c);
-        
-        // ffichreaffiche();
-    
-        inputexpense.value = '';
-        inputAmount.value = '';
-    
+    }
+    else{
         echecs.style.display = 'block';
-        echecs.firstElementChild.textContent = 'Tâche Modifier' ;
-        echecs.lastElementChild.textContent = 'Votre tâche à été modifier avec succès' 
+        echecs.firstElementChild.textContent = 'Error' ;
+        echecs.lastElementChild.textContent = 'Veuillez remplir le champ de description de la dépence ' 
         setTimeout(() => {
             echecs.style.display = 'none'
             
         }, 3000);
-        editExpense.style.display = "none";
-        btnexpense.style.display = "block";
     }
 
 })
