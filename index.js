@@ -489,6 +489,8 @@ editExpense.addEventListener('click', () =>{
         echecs.style.display = 'none'
         
     }, 3000);
+    editExpense.style.display = "none";
+    btnexpense.style.display = "block";
 
 })
 // Affichage des libelles
