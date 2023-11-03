@@ -431,28 +431,41 @@ btnclose.addEventListener('click', () =>{
 })
 // button ajouter une modification
 editExpense.addEventListener('click', () =>{
-    let stockedit = JSON.parse(localStorage.getItem('cles'));
-    console.log(stockedit);
-    console.log(filteredtabb);
-    console.log(stockedit[filteredtabb]);
-    stockedit[filteredtabb].titre = inputAmount.value;
-    stockedit[filteredtabb].valu = inputexpense.value;
-    let a = aa
-    let b = inputexpense.value;
-    let c = 0;
-    localStorage.setItem('cles',JSON.stringify(stockedit));
-    afficheDepense();
-    // mettre à jour l'historique
-    // history.innerHTML=" ";
-    // afficheHistory();
-    // btnclose.style.display="block";
-    // gestion des valeur de la chart grphiques
-    myChartjs();
+    if (condition) {
+        let stockedit = JSON.parse(localStorage.getItem('cles'));
+        console.log(stockedit);
+        console.log(filteredtabb);
+        console.log(stockedit[filteredtabb]);
+        stockedit[filteredtabb].titre = inputAmount.value;
+        stockedit[filteredtabb].valu = inputexpense.value;
+        let a = aa
+        let b = inputexpense.value;
+        let c = 0;
+        localStorage.setItem('cles',JSON.stringify(stockedit));
+        afficheDepense();
+        // mettre à jour l'historique
+        // history.innerHTML=" ";
+        // afficheHistory();
+        // btnclose.style.display="block";
+        // gestion des valeur de la chart grphiques
+        myChartjs();
 
-    if (a>b) {
-        c = a - b;
-        let locc = JSON.parse(localStorage.getItem('valeur'));
-        locc.expense = Number(locc.expense) - Number(c);
+        if (a>b) {
+            c = a - b;
+            let locc = JSON.parse(localStorage.getItem('valeur'));
+            locc.expense = Number(locc.expense) - Number(c);
+            locc.budget = Number(locc.budget)
+            locc.balance = Number(locc.budget) - Number(locc.expense);
+
+            localStorage.setItem('valeur',JSON.stringify(locc));
+            chfexpense.textContent = locc.expense + ' F';
+            chfbalance.textContent = locc.balance + ' F';
+            console.log(locc);
+        }
+        else{
+            c = b - a;
+            let locc = JSON.parse(localStorage.getItem('valeur'));
+            locc.expense = Number(locc.expense) + Number(c);
         locc.budget = Number(locc.budget)
         locc.balance = Number(locc.budget) - Number(locc.expense);
         
@@ -460,37 +473,26 @@ editExpense.addEventListener('click', () =>{
         chfexpense.textContent = locc.expense + ' F';
         chfbalance.textContent = locc.balance + ' F';
         console.log(locc);
-    }
-    else{
-        c = b - a;
-        let locc = JSON.parse(localStorage.getItem('valeur'));
-        locc.expense = Number(locc.expense) + Number(c);
-        locc.budget = Number(locc.budget)
-        locc.balance = Number(locc.budget) - Number(locc.expense);
+        }
+        console.log(a);
+        console.log(b);
+        console.log(c);
         
-        localStorage.setItem('valeur',JSON.stringify(locc));
-        chfexpense.textContent = locc.expense + ' F';
-        chfbalance.textContent = locc.balance + ' F';
-        console.log(locc);
-    }
-    console.log(a);
-    console.log(b);
-    console.log(c);
+        // ffichreaffiche();
     
-    // ffichreaffiche();
-   
-    inputexpense.value = '';
-    inputAmount.value = '';
-
-    echecs.style.display = 'block';
-    echecs.firstElementChild.textContent = 'Tâche Modifier' ;
-    echecs.lastElementChild.textContent = 'Votre tâche à été modifier avec succès' 
-    setTimeout(() => {
-        echecs.style.display = 'none'
-        
-    }, 3000);
-    editExpense.style.display = "none";
-    btnexpense.style.display = "block";
+        inputexpense.value = '';
+        inputAmount.value = '';
+    
+        echecs.style.display = 'block';
+        echecs.firstElementChild.textContent = 'Tâche Modifier' ;
+        echecs.lastElementChild.textContent = 'Votre tâche à été modifier avec succès' 
+        setTimeout(() => {
+            echecs.style.display = 'none'
+            
+        }, 3000);
+        editExpense.style.display = "none";
+        btnexpense.style.display = "block";
+    }
 
 })
 // Affichage des libelles
