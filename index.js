@@ -435,24 +435,7 @@ editExpense.addEventListener('click', () =>{
     if (inputAmount.value != '') {
         if (inputexpense.value != '') {
             if (inputexpense.value > 0) {
-                // if (localStorage.getItem('valeur')) {
-                //     let tabb = JSON.parse(localStorage.getItem('cles'));
-                //     let result = tabb.find((produit)=> produit.titre == inputAmount.value)
-                //     if (result) {
-                //         let stockedit = JSON.parse(localStorage.getItem('cles'));
 
-                //         let nomrempl = stockedit[filteredtabb].titre
-                //         let res = stockedit.filter(el => el.titre !== nomrempl)
-                //         console.log(res);
-                //         stockedit = res
-                //         localStorage.setItem('cles',JSON.stringify(stockedit));
-
-
-                //         editExpense.style.display = "none";
-                //         btnexpense.style.display = "block";
-                //     }
-                // }
-                // else{
                     let stockedit = JSON.parse(localStorage.getItem('cles'));
 
                     stockedit[filteredtabb].titre = inputAmount.value;
