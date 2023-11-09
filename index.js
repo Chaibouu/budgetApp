@@ -222,7 +222,7 @@ btnexpense.addEventListener('click', () =>{
             if (inputexpense.value > 0) {
                 if (localStorage.getItem('valeur')) {
                     let tabb = JSON.parse(localStorage.getItem('cles'));
-                    let result = tabb.find((produit)=> produit.titre == inputAmount.value)
+                    let result = tabb.find((produit)=> produit.titre == inputAmount.value.trim())
                 if (result) {
                     let valeurr = JSON.parse(localStorage.getItem('valeur'));
                     let bbudget = valeurr.budget;
@@ -337,7 +337,7 @@ const insert = ()=>{
      
         const libel = {
             id : tabb.length? tabb.length + 1: 1,
-            titre : inputAmount.value,
+            titre : inputAmount.value.trim(),
             valu : inputexpense.value,
         }
         
