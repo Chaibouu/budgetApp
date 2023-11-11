@@ -337,7 +337,7 @@ const insert = ()=>{
      
         const libel = {
             id : tabb.length? tabb.length + 1: 1,
-            titre : inputAmount.value.trim().toUpperCase(),
+            titre : inputAmount.value.trim().toLowerCase(),
             valu : inputexpense.value,
         }
         
