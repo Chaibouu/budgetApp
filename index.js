@@ -438,61 +438,110 @@ editExpense.addEventListener('click', () =>{
 
                     let stockedit = JSON.parse(localStorage.getItem('cles'));
 
-                    stockedit[filteredtabb].titre = inputAmount.value;
-                    stockedit[filteredtabb].valu = inputexpense.value;
-                    let a = aa
-                    let b = inputexpense.value;
-                    let c = 0;
-                    localStorage.setItem('cles',JSON.stringify(stockedit));
-                    afficheDepense();
-                    // mettre à jour l'historique
-                    // history.innerHTML=" ";
-                    // afficheHistory();
-                    // btnclose.style.display="block";
-                    // gestion des valeur de la chart grphiques
-                    myChartjs();
-
-                    if (a>b) {
-                        c = a - b;
-                        let locc = JSON.parse(localStorage.getItem('valeur'));
-                        locc.expense = Number(locc.expense) - Number(c);
-                        locc.budget = Number(locc.budget)
-                        locc.balance = Number(locc.budget) - Number(locc.expense);
-
-                        localStorage.setItem('valeur',JSON.stringify(locc));
-                        chfexpense.textContent = locc.expense + ' F';
-                        chfbalance.textContent = locc.balance + ' F';
-                        console.log(locc);
+                    let doubl = stockedit.find(el => el.titre == inputAmount.value);
+                    console.log(doubl);
+                    if (doubl) {
+                        let valeurr = JSON.parse(localStorage.getItem('valeur'));
+                        let bbudget = valeurr.budget;
+                        let eexpense = valeurr.expense;
+                        valeur.budget = bbudget ;
+                        valeur.expense = Number(inputexpense.value) + Number(eexpense);
+                        valeur.balance = valeur.budget - valeur.expense;
+                        chfexpense.textContent = valeur.expense + ' F';
+                        chfbalance.textContent = valeur.balance + ' F';
+                        localStorage.setItem('valeur',JSON.stringify(valeur));
+                        // permet de faire apparaitre et disparaitre la confrimation de depence en cas de doublons
+                        btnhistory.style.display = 'block';
+                        echecs.style.display = 'block';
+                        echecs.firstElementChild.textContent = 'Ajout de la dépense' ;
+                        echecs.lastElementChild.textContent = 'Votre dépense à été ajouter avec succès'
+                                setTimeout(() => {
+                            echecs.style.display = 'none'
+                            
+                        }, 2000);
+                        
+                        doubl.valu = parseInt(doubl.valu) + parseInt(inputexpense.value);
+                        // Récuperer le titre de l'élément sible
+                        let no = stockedit[filteredtabb].titre;
+                        // rechercher les doublons dans le local
+                        let re = stockedit.filter(el=> el.titre != no);
+                        // remplacer les doublons
+                        stockedit = re;
+                        localStorage.setItem('cles',JSON.stringify(stockedit));
+                        afficheDepense();
+                        // gestion des valeur de la chart grphiques
+                        chartj.data.labels = [];
+                        chartj.data.datasets[0].data = [];
+                        tabb.forEach(element => {
+                            chartj.data.labels.push(element.titre);
+                            chartj.data.datasets[0].data.push(element.valu);
+                            chartj.data.datasets[0].backgroundColor.push(colorr());
+                            chartj.update();
+                        });
+        
+                        inputexpense.value = '';
+                        inputAmount.value = '';
                     }
                     else{
-                        c = b - a;
-                        let locc = JSON.parse(localStorage.getItem('valeur'));
-                        locc.expense = Number(locc.expense) + Number(c);
-                        locc.budget = Number(locc.budget)
-                        locc.balance = Number(locc.budget) - Number(locc.expense);
+                        let stockedit = JSON.parse(localStorage.getItem('cles'));
+                        stockedit[filteredtabb].titre = inputAmount.value;
+                        stockedit[filteredtabb].valu = inputexpense.value;
+                        let a = aa
+                        let b = inputexpense.value;
+                        let c = 0;
+                        localStorage.setItem('cles',JSON.stringify(stockedit));
+                        afficheDepense();
+                        // mettre à jour l'historique
+                        // history.innerHTML=" ";
+                        // afficheHistory();
+                        // btnclose.style.display="block";
+                        // gestion des valeur de la chart grphiques
+                        myChartjs();
 
-                        localStorage.setItem('valeur',JSON.stringify(locc));
-                        chfexpense.textContent = locc.expense + ' F';
-                        chfbalance.textContent = locc.balance + ' F';
-                        console.log(locc);
+                        if (a>b) {
+                            c = a - b;
+                            let locc = JSON.parse(localStorage.getItem('valeur'));
+                            locc.expense = Number(locc.expense) - Number(c);
+                            locc.budget = Number(locc.budget)
+                            locc.balance = Number(locc.budget) - Number(locc.expense);
+
+                            localStorage.setItem('valeur',JSON.stringify(locc));
+                            chfexpense.textContent = locc.expense + ' F';
+                            chfbalance.textContent = locc.balance + ' F';
+                            console.log(locc);
+                        }
+                        else{
+                            c = b - a;
+                            let locc = JSON.parse(localStorage.getItem('valeur'));
+                            locc.expense = Number(locc.expense) + Number(c);
+                            locc.budget = Number(locc.budget)
+                            locc.balance = Number(locc.budget) - Number(locc.expense);
+
+                            localStorage.setItem('valeur',JSON.stringify(locc));
+                            chfexpense.textContent = locc.expense + ' F';
+                            chfbalance.textContent = locc.balance + ' F';
+                            console.log(locc);
+                            }
+
+
+                            // ffichreaffiche();
+                        
+                            inputexpense.value = '';
+                            inputAmount.value = '';
+
+                            echecs.style.display = 'block';
+                            echecs.firstElementChild.textContent = 'Tâche Modifier' ;
+                            echecs.lastElementChild.textContent = 'Votre tâche à été modifier avec succès' 
+                            setTimeout(() => {
+                                echecs.style.display = 'none'
+
+                            }, 3000);
+                            editExpense.style.display = "none";
+                            btnexpense.style.display = "block";
+                        // }
                     }
 
-
-                    // ffichreaffiche();
-                
-                    inputexpense.value = '';
-                    inputAmount.value = '';
-
-                    echecs.style.display = 'block';
-                    echecs.firstElementChild.textContent = 'Tâche Modifier' ;
-                    echecs.lastElementChild.textContent = 'Votre tâche à été modifier avec succès' 
-                    setTimeout(() => {
-                        echecs.style.display = 'none'
-
-                    }, 3000);
-                    editExpense.style.display = "none";
-                    btnexpense.style.display = "block";
-                // }
+                    
                 
             }
             else{
